@@ -2,36 +2,57 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>チャットテスト窓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャットサポート｜テストページ</title>
     <style>
-        /* ソニー銀行風のシンプルなデザイン調整 */
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
-        .loading-msg { color: #666; }
+        /* デザイン要素を抽出した簡易CSS */
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f7f8; }
+        header { background: #fff; border-bottom: 2px solid #004da1; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-weight: bold; color: #004da1; font-size: 1.2rem; }
+        main { max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
+        h1 { font-size: 1.5rem; border-left: 5px solid #004da1; padding-left: 15px; margin-bottom: 25px; }
+        .info-box { background: #fdfdfd; border: 1px solid #ddd; padding: 15px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 20px; }
+        .fcolor-red { color: #d00; font-weight: bold; }
+        .btn-area { text-align: center; margin-top: 30px; padding: 20px; background: #eef2f4; border-radius: 8px; }
+        
+        /* MIAW用のボタンデザイン（カスタマイズ用） */
+        .chat-launch-btn { background-color: #28a745; color: white; border: none; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .chat-launch-btn:hover { background-color: #218838; transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-    <div class="loading-msg">チャットを準備中...</div>
+<header>
+    <div class="logo">チャットサポート・シミュレーター</div>
+</header>
 
-    <script type='text/javascript'>
-        function initEmbeddedMessaging() {
-            try {
-                embeddedservice_bootstrap.settings.language = 'ja'; 
-                
-                // 【重要】準備ができたら自動でチャットを開く
-                window.addEventListener("onEmbeddedMessagingReady", () => {
-                    console.log("MIAW Ready!");
-                    document.querySelector('.loading-msg').innerText = "接続されました";
-                    embeddedservice_bootstrap.utilAPI.launchChat();
-                });
+<main>
+    <h1>チャットサポート</h1>
+    
+    <div class="info-box">
+        <p>オペレーターがリアルタイムに回答します。以下の留意事項をご確認ください。</p>
+        <ul>
+            <li>日本語のみ対応しています。</li>
+            <li class="fcolor-red">各種パスワードを入力しないでください。</li>
+        </ul>
+    </div>
 
-                embeddedservice_bootstrap.init(
-                    // ここにSalesforceから発行されたID類が入ります
-                );
-            } catch (err) {
-                console.error('Error loading MIAW:', err);
-            }
-        };
-    </script>
-    </body>
+    <div class="btn-area">
+        <p><strong>下のボタンからチャットを開始できます</strong></p>
+        <button class="chat-launch-btn" onclick="launchChat()">チャット開始</button>
+    </div>
+</main>
+
+<script type='text/javascript'>
+	function launchChat() {
+		try {
+			embeddedservice_bootstrap.utilAPI.launchChat();
+		} catch (err) {
+			console.error('MIAWの起動に失敗しました: ', err);
+			alert('チャットを準備中です。数秒待ってから再度お試しください。');
+		}
+	}
+</script>
+
+</body>
 </html>
