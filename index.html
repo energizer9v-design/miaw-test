@@ -3,55 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>チャットサポート｜テストページ</title>
+    <title>チャットサポート｜テスト</title>
     <style>
-        /* デザイン要素を抽出した簡易CSS */
+        /* ソニー銀行風のデザイン要素 */
         body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; color: #333; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f7f8; }
-        header { background: #fff; border-bottom: 2px solid #004da1; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-weight: bold; color: #004da1; font-size: 1.2rem; }
-        main { max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
-        h1 { font-size: 1.5rem; border-left: 5px solid #004da1; padding-left: 15px; margin-bottom: 25px; }
-        .info-box { background: #fdfdfd; border: 1px solid #ddd; padding: 15px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 20px; }
+        header { background: #fff; border-bottom: 2px solid #004da1; padding: 15px 20px; }
+        .sonylogo { color: #004da1; font-weight: bold; font-size: 1.1rem; }
+        main { max-width: 800px; margin: 30px auto; padding: 25px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; }
+        h1.chat-ttl-h1 { font-size: 1.4rem; border-left: 5px solid #004da1; padding-left: 15px; margin-bottom: 20px; font-weight: bold; }
+        .chatWin-textFrame { background: #fdfdfd; border: 1px solid #ddd; padding: 15px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 25px; }
         .fcolor-red { color: #d00; font-weight: bold; }
-        .btn-area { text-align: center; margin-top: 30px; padding: 20px; background: #eef2f4; border-radius: 8px; }
         
-        /* MIAW用のボタンデザイン（カスタマイズ用） */
-        .chat-launch-btn { background-color: #28a745; color: white; border: none; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-        .chat-launch-btn:hover { background-color: #218838; transform: translateY(-2px); }
+        /* 選択リストのデザイン */
+        .ttl3rd { font-size: 1rem; margin-top: 20px; font-weight: bold; }
+        .chatsel { margin: 15px 0 25px; }
+        .chattype { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; }
+        
+        /* ボタンのデザイン */
+        .chatbtn { text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; }
+        .m-btn-green { background-color: #28a745; color: white; border: none; padding: 15px 60px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .m-btn-green:hover { background-color: #218838; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">チャットサポート・シミュレーター</div>
+    <div class="sonylogo">ソニー銀行風テストページ</div>
 </header>
 
 <main>
-    <h1>チャットサポート</h1>
-    
-    <div class="info-box">
-        <p>オペレーターがリアルタイムに回答します。以下の留意事項をご確認ください。</p>
-        <ul>
-            <li>日本語のみ対応しています。</li>
-            <li class="fcolor-red">各種パスワードを入力しないでください。</li>
-        </ul>
-    </div>
+    <h1 class="chat-ttl-h1">チャットサポート</h1>
 
-    <div class="btn-area">
-        <p><strong>下のボタンからチャットを開始できます</strong></p>
-        <button class="chat-launch-btn" onclick="launchChat()">チャット開始</button>
+    <div class="chatWin-cont">
+        <p>留意事項をご確認のうえ「チャット開始」を押してください。</p>
+
+        <div class="chatWin-textFrame">
+            <p class="fweight-b">留意事項</p>
+            <ul>
+                <li>日本語のみ対応しています。</li>
+                <li class="fcolor-red">各種パスワードを入力しないでください。</li>
+                <li>内容により電話によるお問い合わせをお願いすることがあります。</li>
+            </ul>
+        </div>
+
+        <p class="ttl3rd">何についてお困りですか？</p>
+        <div class="chatsel">
+            <select class="chattype" id="selchat">
+                <option value="0" selected="selected">お選びください</option>
+                <option value="1">口座開設・キャッシュカード・ATM</option>
+                <option value="2">Sony Bank WALLET</option>
+                <option value="3">パスワード・暗証番号</option>
+                <option value="4">お振込</option>
+                <option value="9">住宅ローン</option>
+                <option value="10">その他のお問い合わせ</option>
+            </select>
+        </div>
+
+        <div class="chatbtn">
+            <button class="m-btn-green" onclick="launchChat()">チャット開始</button>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">※別ウィンドウでチャットが開きます</p>
+        </div>
     </div>
 </main>
 
 <script type='text/javascript'>
-	function launchChat() {
-		try {
-			embeddedservice_bootstrap.utilAPI.launchChat();
-		} catch (err) {
-			console.error('MIAWの起動に失敗しました: ', err);
-			alert('チャットを準備中です。数秒待ってから再度お試しください。');
-		}
-	}
+    function launchChat() {
+        // 選択された値をコンソールに記録（必要に応じてSalesforceへ渡す処理を追加可能）
+        const selectedValue = document.getElementById('selchat').value;
+        console.log('選択されたカテゴリー:', selectedValue);
+
+        try {
+            // Salesforce MIAWの起動命令
+            embeddedservice_bootstrap.utilAPI.launchChat();
+        } catch (err) {
+            console.error('MIAW起動エラー:', err);
+            alert('チャットを準備中です。Salesforceの設定やURL許可を確認してください。');
+        }
+    }
 </script>
 
 </body>
