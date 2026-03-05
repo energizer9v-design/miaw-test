@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>チャットテスト窓</title>
+    <style>
+        /* ソニー銀行風のシンプルなデザイン調整 */
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
+        .loading-msg { color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="loading-msg">チャットを準備中...</div>
+
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'ja'; 
+                
+                // 【重要】準備ができたら自動でチャットを開く
+                window.addEventListener("onEmbeddedMessagingReady", () => {
+                    console.log("MIAW Ready!");
+                    document.querySelector('.loading-msg').innerText = "接続されました";
+                    embeddedservice_bootstrap.utilAPI.launchChat();
+                });
+
+                embeddedservice_bootstrap.init(
+                    // ここにSalesforceから発行されたID類が入ります
+                );
+            } catch (err) {
+                console.error('Error loading MIAW:', err);
+            }
+        };
+    </script>
+    </body>
+</html>
